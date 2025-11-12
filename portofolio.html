@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Tchouaffi Nguenkam Joyce Yannis — Développeur Full Stack</title>
+    <style>
+      :root {
+        --bg: #071325; /* fond plus sombre et doux */
+        --card: #0d1a2a; /* carte légèrement contrastée */
+        --accent: #5eead4; /* teal pâle agréable */
+        --accent-2: #a78bfa; /* lavande douce */
+        --muted: #94a3b8; /* texte secondaire */
+        --glass: rgba(255, 255, 255, 0.03);
+        --radius: 14px;
+        --glass-2: rgba(255, 255, 255, 0.02);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        background: var(--bg);
+        color: #e6eef8;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      .wrap {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 32px;
+        display: grid;
+        grid-template-columns: 340px 1fr;
+        gap: 32px;
+      }
+      header.card {
+        background: linear-gradient(
+          180deg,
+          rgba(15, 20, 40, 0.8),
+          rgba(10, 14, 39, 0.6)
+        );
+        backdrop-filter: blur(20px);
+        padding: 28px;
+        border-radius: var(--radius);
+        border: 1px solid rgba(56, 189, 248, 0.1);
+        box-shadow: 0 8px 32px rgba(2, 6, 23, 0.5);
+        position: sticky;
+        top: 20px;
+        height: fit-content;
+      }
+      header .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 28px;
+        color: #031026;
+        box-shadow: 0 8px 24px rgba(56, 189, 248, 0.2);
+        margin-bottom: 16px;
+      }
+      header h1 {
+        font-size: 24px;
+        line-height: 1.2;
+        font-weight: 700;
+      }
+      header p.lead {
+        color: var(--muted);
+        margin-top: 10px;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .contact {
+        margin-top: 24px;
+        font-size: 13px;
+        color: var(--muted);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .contact div {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .contact strong {
+        color: #cfeffd;
+      }
+      .contact a {
+        color: var(--accent);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .contact a:hover {
+        color: var(--accent-2);
+      }
+      .skills {
+        margin-top: 28px;
+        border-top: 1px solid rgba(56, 189, 248, 0.1);
+        padding-top: 20px;
+      }
+      .skills-title {
+        font-weight: 700;
+        margin-bottom: 14px;
+        color: #cfeffd;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .skill {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 16px;
+      }
+      .skill .label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .bar {
+        height: 8px;
+        background: var(--glass);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .bar > i {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        border-radius: 999px;
+        transition: width 0.9s cubic-bezier(0.2, 0.9, 0.2, 1);
+      }
+      main.card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          var(--glass-2)
+        );
+        backdrop-filter: blur(20px);
+        padding: 28px;
+        border-radius: var(--radius);
+        border: 1px solid rgba(56, 189, 248, 0.1);
+        box-shadow: 0 8px 32px rgba(2, 6, 23, 0.5);
+      }
+      .intro {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 24px;
+        margin-bottom: 28px;
+      }
+      .intro .title {
+        flex: 1;
+      }
+      .intro h2 {
+        font-size: 28px;
+        line-height: 1.3;
+        font-weight: 700;
+        background: linear-gradient(135deg, #e6eef8 0%, var(--accent) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .intro p {
+        color: var(--muted);
+        margin-top: 14px;
+        line-height: 1.7;
+        font-size: 15px;
+      }
+      .intro strong {
+        color: #e6eef8;
+        font-weight: 600;
+      }
+      .cta {
+        display: flex;
+        gap: 12px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #031026;
+        padding: 12px 18px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        box-shadow: 0 8px 20px rgba(56, 189, 248, 0.15);
+        transition: all 0.25s ease;
+      }
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(56, 189, 248, 0.25);
+      }
+      .btn.secondary {
+        background: transparent;
+        color: var(--accent);
+        border: 1.5px solid var(--accent);
+        box-shadow: none;
+      }
+      .btn.secondary:hover {
+        background: rgba(56, 189, 248, 0.1);
+        box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+      }
+      .role-card {
+        background: linear-gradient(
+          135deg,
+          rgba(56, 189, 248, 0.05),
+          rgba(124, 58, 237, 0.05)
+        );
+        padding: 18px;
+        border-radius: 12px;
+        border: 1px solid rgba(56, 189, 248, 0.15);
+        min-width: 240px;
+        flex-shrink: 0;
+      }
+      .role-card .label {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+      }
+      .role-card .title {
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #cfeffd;
+      }
+      .role-card .techs {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+      .projects {
+        margin-top: 32px;
+        padding-top: 32px;
+        border-top: 1px solid rgba(56, 189, 248, 0.1);
+      }
+      .projects h3 {
+        font-size: 18px;
+        margin-bottom: 16px;
+        font-weight: 700;
+      }
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+      }
+      .proj {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        padding: 18px;
+        border-radius: 12px;
+        border: 1px solid rgba(56, 189, 248, 0.1);
+        transition: all 0.3s cubic-bezier(0.2, 0.9, 0.2, 1);
+        cursor: pointer;
+      }
+      .proj:hover {
+        transform: translateY(-8px);
+        border-color: rgba(56, 189, 248, 0.3);
+        box-shadow: 0 20px 40px rgba(56, 189, 248, 0.15);
+      }
+      .proj h4 {
+        font-size: 16px;
+        margin-bottom: 8px;
+        font-weight: 700;
+      }
+      .proj p {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .tags {
+        margin-top: 12px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .tag {
+        font-size: 11px;
+        color: var(--accent);
+        background: rgba(56, 189, 248, 0.08);
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(56, 189, 248, 0.2);
+        font-weight: 500;
+      }
+      .experience-section {
+        margin-top: 28px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        padding-top: 28px;
+        border-top: 1px solid rgba(56, 189, 248, 0.1);
+      }
+      .experience-section h4 {
+        font-size: 16px;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+      .experience-section p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+      }
+      footer {
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid rgba(56, 189, 248, 0.1);
+        color: var(--muted);
+        font-size: 13px;
+        text-align: center;
+      }
+      footer .year {
+        color: var(--accent);
+      }
+      /* animations */
+      .fade {
+        opacity: 0;
+        transform: translateY(10px);
+        animation: fadeIn 0.7s ease forwards;
+      }
+      .fade.delay-1 {
+        animation-delay: 0.08s;
+      }
+      .fade.delay-2 {
+        animation-delay: 0.16s;
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      /* responsive */
+      @media (max-width: 1024px) {
+        .wrap {
+          grid-template-columns: 1fr;
+          gap: 24px;
+          padding: 24px;
+        }
+        header.card {
+          position: relative;
+          top: auto;
+        }
+        .intro {
+          flex-direction: column;
+        }
+        .intro h2 {
+          font-size: 24px;
+        }
+        .role-card {
+          min-width: auto;
+        }
+      }
+      @media (max-width: 640px) {
+        .wrap {
+          padding: 16px;
+        }
+        .intro h2 {
+          font-size: 20px;
+        }
+        .btn {
+          width: 100%;
+          text-align: center;
+        }
+        .cta {
+          flex-direction: column;
+        }
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Canvas pour fond particules (neon) -->
+    <canvas
+      id="bgParticles"
+      style="
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+        display: block;
+      "
+    ></canvas>
+    <div class="wrap">
+      <!-- Header / Sidebar -->
+      <header class="card fade delay-1" aria-label="Profil">
+        <div class="avatar">YJ</div>
+        <div>
+          <h1>Tchouaffi Nguenkam Joyce Yannis</h1>
+          <p class="lead">
+            Développeur Full Stack — curieux et passionné, je conçois des
+            expériences robustes et évolutives.
+          </p>
+        </div>
+
+        <div class="contact">
+          <div>
+            <strong>📧 Email :</strong>
+            <a href="mailto:tchouaffiyannis237@gmail.com"
+              >tchouaffiyannis237@gmail.com</a
+            >
+          </div>
+          <div>
+            <strong>📱 Tél :</strong>
+            <a href="tel:+237690263590">+237 690 263 590</a>
+          </div>
+        </div>
+
+        <div class="skills">
+          <div class="skills-title">Compétences clés</div>
+          <div class="skill">
+            <div class="label"><span>Frontend</span><span>88%</span></div>
+            <div class="bar"><i style="width: 88%"></i></div>
+          </div>
+          <div class="skill">
+            <div class="label"><span>Backend</span><span>82%</span></div>
+            <div class="bar"><i style="width: 82%"></i></div>
+          </div>
+          <div class="skill">
+            <div class="label">
+              <span>Bases de données</span><span>76%</span>
+            </div>
+            <div class="bar"><i style="width: 76%"></i></div>
+          </div>
+          <div class="skill">
+            <div class="label"><span>Web & Design</span><span>90%</span></div>
+            <div class="bar"><i style="width: 90%"></i></div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="card fade delay-2" aria-label="Contenu principal">
+        <section class="intro">
+          <div class="title">
+            <h2>Bonjour — je suis un développeur full stack</h2>
+            <p>
+              Je m'appelle <strong>Tchouaffi Nguenkam Joyce Yannis</strong>.
+              Passionné par la qualité du code, je construis des applications
+              performantes en <strong>PHP, Laravel, Python</strong> côté
+              serveur, et en <strong>React Native, TypeScript</strong> côté
+              client. J'intègre <strong>Firebase</strong>
+              pour accélérer les MVP et assurer l'évolutivité.
+            </p>
+            <div class="cta">
+              <a
+                class="btn"
+                href="mailto:tchouaffiyannis237@gmail.com?subject=Contact%20depuis%20portfolio"
+              >
+                💼 Me contacter
+              </a>
+              <a class="btn secondary" href="#" onclick="downloadCV(event)">
+                📥 Télécharger CV
+              </a>
+            </div>
+          </div>
+
+          <div class="role-card">
+            <div class="label">Rôle principal</div>
+            <div class="title">Full Stack Developer</div>
+            <div class="techs">
+              <strong>Technos :</strong><br />
+              PHP · Laravel · React Native · TypeScript · Firebase · Python ·
+              HTML · CSS · JavaScript
+            </div>
+          </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects" aria-label="Projets">
+          <h3>Projets sélectionnés</h3>
+          <div class="projects-grid">
+            <article class="proj">
+              <h4>🛍️ Marketplace E-commerce</h4>
+              <p>
+                Plateforme B2C construite avec Laravel, API REST complète,
+                gestion des stocks, paiement Stripe et dashboards
+                d'administration avancés.
+              </p>
+              <div class="tags">
+                <span class="tag">PHP</span>
+                <span class="tag">Laravel</span>
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+              </div>
+            </article>
+
+            <article class="proj">
+              <h4>📱 App Mobile (React Native)</h4>
+              <p>
+                Application cross-platform pour services locaux.
+                Authentification Firebase, notifications push et synchronisation
+                offline avancée.
+              </p>
+              <div class="tags">
+                <span class="tag">React Native</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">Firebase</span>
+                <span class="tag">JavaScript</span>
+              </div>
+            </article>
+
+            <article class="proj">
+              <h4>⚙️ API & Automatisation</h4>
+              <p>
+                Scripts et microservices en Python pour intégration CI/CD, web
+                scraping, traitement de données et orchestration de tâches
+                automatisées.
+              </p>
+              <div class="tags">
+                <span class="tag">Python</span>
+                <span class="tag">PHP</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">APIs REST</span>
+              </div>
+            </article>
+
+            <article class="proj">
+              <h4>🌐 Site Vitrine & CMS</h4>
+              <p>
+                Sites statiques et dynamiques en HTML/CSS/PHP avec CMS
+                personnalisé, optimisation SEO et performance.
+              </p>
+              <div class="tags">
+                <span class="tag">HTML5</span>
+                <span class="tag">CSS3</span>
+                <span class="tag">PHP</span>
+                <span class="tag">JavaScript</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="experience-section">
+          <div>
+            <h4>💡 Expérience</h4>
+            <p>
+              Conception et déploiement d'applications web et mobiles,
+              intégration d'API externes, mise en place de workflows CI/CD,
+              optimisation des performances et gestion de projets.
+            </p>
+          </div>
+          <div>
+            <h4>🎓 Éducation & Formation</h4>
+            <p>
+              Formations continues en développement web et mobile, autodidacte
+              sur frameworks modernes et meilleures pratiques du développement
+              professionnel.
+            </p>
+          </div>
+        </section>
+
+        <footer>
+          <div>✨ Disponible pour missions freelance ou poste en équipe</div>
+          <div style="margin-top: 12px">
+            © <span class="year" id="year"></span> Tchouaffi N. J. Yannis —
+            Portfolio
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <script>
+      // Année actuelle
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Fonction de téléchargement CV
+      function downloadCV(e) {
+        e.preventDefault();
+        alert("📥 Téléchargement du CV — ajoute un lien vers ton fichier PDF.");
+      }
+
+      // Animations des projets
+      document.querySelectorAll(".proj").forEach((p, i) => {
+        p.style.opacity = 0;
+        setTimeout(() => {
+          p.style.transition = "opacity .6s, transform .6s";
+          p.style.opacity = 1;
+        }, 200 + i * 100);
+      });
+    </script>
+
+    <!-- Script: particules neon léger -->
+    <script>
+      (function () {
+        const c = document.getElementById("bgParticles");
+        if (!c) return;
+        const ctx = c.getContext("2d", { alpha: true });
+        let W = (c.width = innerWidth),
+          H = (c.height = innerHeight);
+        window.addEventListener("resize", () => {
+          W = c.width = innerWidth;
+          H = c.height = innerHeight;
+        });
+
+        class P {
+          constructor() {
+            this.reset();
+          }
+          reset() {
+            this.x = Math.random() * W;
+            this.y = Math.random() * H;
+            this.vx = (Math.random() - 0.5) * 0.6;
+            this.vy = (Math.random() - 0.5) * 0.6;
+            this.r = 0.8 + Math.random() * 2.2;
+          }
+          step() {
+            this.x += this.vx;
+            this.y += this.vy;
+            if (
+              this.x < -10 ||
+              this.x > W + 10 ||
+              this.y < -10 ||
+              this.y > H + 10
+            )
+              this.reset();
+          }
+        }
+
+        const COUNT = Math.max(60, Math.floor((W * H) / 9000));
+        const parts = Array.from({ length: COUNT }, () => new P());
+
+        function draw() {
+          ctx.clearRect(0, 0, W, H);
+          // subtle dark veil to keep contrast with --bg
+          ctx.fillStyle = "rgba(2,6,23,0.18)";
+          ctx.fillRect(0, 0, W, H);
+
+          // draw particles
+          for (let i = 0; i < parts.length; i++) {
+            const p = parts[i];
+            ctx.beginPath();
+            ctx.fillStyle = "rgba(94,234,212,0.95)"; // teal pâle (--accent)
+            ctx.shadowColor = "rgba(167,139,250,0.9)"; // lavande douce (--accent-2)
+            ctx.shadowBlur = 8;
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+          }
+
+          // connect lines
+          for (let i = 0; i < parts.length; i++) {
+            for (let j = i + 1; j < parts.length; j++) {
+              const a = parts[i],
+                b = parts[j];
+              const dx = a.x - b.x,
+                dy = a.y - b.y;
+              const d = Math.hypot(dx, dy);
+              if (d < 110) {
+                ctx.strokeStyle = "rgba(94,234,212," + (0.12 - d * 0.001) + ")";
+                ctx.lineWidth = 0.9;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.stroke();
+              }
+            }
+          }
+        }
+
+        function step() {
+          for (let p of parts) p.step();
+          draw();
+          requestAnimationFrame(step);
+        }
+        step();
+
+        // subtle mouse repulsion
+        let mx = -9999,
+          my = -9999;
+        window.addEventListener("mousemove", (e) => {
+          mx = e.clientX;
+          my = e.clientY;
+        });
+        setInterval(() => {
+          for (let p of parts) {
+            const dx = p.x - mx,
+              dy = p.y - my;
+            const d = Math.hypot(dx, dy);
+            if (d < 120) {
+              p.x += (dx / d) * 2;
+              p.y += (dy / d) * 2;
+            }
+          }
+        }, 50);
+      })();
+    </script>
+  </body>
+</html>
